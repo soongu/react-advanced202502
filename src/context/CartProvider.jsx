@@ -13,8 +13,21 @@ const CartProvider = ({ children }) => {
   const openModal = () => setCartIsShown(true);
   const closeModal = () => setCartIsShown(false);
 
+  // 장바구니 배열에 데이터를 추가하는 함수
   const handleAddToCartItem = (newCartItem) => {
-    setCartItems([...cartItems, newCartItem]);
+
+    // 원본 배열을 복사
+    const existingItems = [...cartItems]; 
+    // 이미 장바구니에 있는 항목인지를 체크
+    const existingItem = existingItems.find(cartItem => cartItem.id === newCartItem.id);
+    
+    if (existingItem) { // 수량과 가격을 갱신
+      existingItem.amount += newCartItem.amount;
+      existingItem.price += newCartItem.price;
+      setCartItems(existingItems); // 원본에 복사배열 갱신
+    } else { // 배열에 첫 추가
+      setCartItems([...cartItems, newCartItem]);
+    }
     // 총액 갱신
     setTotalPrice(prev => prev + newCartItem.price);
   };
