@@ -32,12 +32,40 @@ const CartProvider = ({ children }) => {
     setTotalPrice(prev => prev + newCartItem.price);
   };
 
+  // 장바구니에서 항목의 수량을 1내리거나 수량이 1일경우 삭제하는 함수
+  const handleRemoveToCartItem = (id) => { 
+    // 원본배열 복사
+    const existingItems = [...cartItems];
+
+    // 사본배열에서 id를 통해 타겟객체를 탐색
+    const existingItem = existingItems.find(item => item.id === id);
+    // 항목 1개의 가격을 구하기
+    const eachPrice = Math.floor(existingItem.price / existingItem.amount);
+
+    // 수량이 1인경우 - 배열에서 제거
+    if (existingItem.amount === 1) {
+      setCartItems(existingItems.filter(item => item.id !== id));
+    } else {
+      // 수량이 1보다 큰경우 - 기존 수량에서 1을 내려서 수정
+
+      existingItem.amount--;
+      existingItem.price -= eachPrice;
+
+      setCartItems(existingItems);
+    }
+
+    // 총액 갱신
+    setTotalPrice(prev => prev - eachPrice);
+   
+  };
+
   const initialValue = {
     cartIsShown: cartIsShown, // 모달을 열고닫는 여부
     openModal: openModal, // 모달 열어주는 함수
     closeModal: closeModal, // 모달 닫아주는 함수
     cartItems: cartItems, // 모달에 렌더링할 장바구니 배열
     addToCartItem: handleAddToCartItem, // 장바구니에 내용을 추가
+    removeToCartItem: handleRemoveToCartItem, // 장바구니 목록에서 항목을 제거하는 함수
     totalPrice: totalPrice, // 장바구니 총액
   };
 

@@ -10,6 +10,7 @@ const CartContext = createContext({
   closeModal: () => { }, // 모달 닫아주는 함수
   cartItems: [], // 모달에서 장바구니 목록을 렌더링할 배열
   addToCartItem: (newCartItem) => { }, // 위의 장바구니 목록에 데이터를 추가하는 함수
+  removeToCartItem: (id) => { }, // 장바구니 목록에서 항목을 제거하는 함수
   totalPrice: 0, // 장바구니에 담긴 총액
 });
 
