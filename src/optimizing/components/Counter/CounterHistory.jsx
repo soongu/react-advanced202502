@@ -23,6 +23,7 @@ const HistoryItem = ({ count }) => {
 const CounterHistory = ({ history }) => {
   log('<CounterHistory /> rendered', 2);
 
+  // key가 변경되면 리렌더링(컴포넌트를 완전히 초기상태로 만듦)이 수행됨
   return (
     <ol>
       {history.map(({ id, value }) => (

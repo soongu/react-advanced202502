@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from 'react';
+import React, { useState, memo, useCallback, useEffect } from 'react';
 
 import IconButton from '../UI/IconButton';
 import MinusIcon from '../UI/Icons/MinusIcon';
@@ -34,7 +34,14 @@ const Counter = ({ initialCount }) => {
   // 카운트의 변화를 배열로 추적
   // [0, 1, -1, 1, -1, 1, 1]
   // [{ id: 'x1', value: 0 }, { id: 'x2', value: 1 }, ...]
-  const [counterChanges, setCounterChanges] = useState([{id: Math.random().toString(), value: initialCount}]);
+
+  // useState의 초기값은 최초 렌더링 시에 한번만 세팅되고 다시 변경되지않음
+  const [counterChanges, setCounterChanges] = useState([{ id: Math.random().toString(), value: initialCount }]);
+  
+  // useEffect로 initialCount에 변동에 따라 counterChanges의 초기값을 다시 세팅하는 코드가 필요
+  // useEffect(() => { 
+  //   setCounterChanges([{ id: Math.random().toString(), value: initialCount }]);
+  // }, [initialCount]);
 
   // 현재 카운트의 총합
   const currentCount = counterChanges.reduce((acc, curr) => acc + curr.value, 0);
