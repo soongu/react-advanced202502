@@ -5,6 +5,7 @@ import MinusIcon from '../UI/Icons/MinusIcon';
 import PlusIcon from '../UI/Icons/PlusIcon';
 import CounterOutput from './CounterOutput';
 import { log } from '../../log';
+import CounterHistory from './CounterHistory';
 
 const isPrime = (number) => {
   log('Calculating if is prime number', 2, 'other');
@@ -26,20 +27,27 @@ const isPrime = (number) => {
 const Counter = ({ initialCount }) => {
 
   log('<Counter /> rendered', 1);
+
   const initialCountIsPrime = isPrime(initialCount);
 
-  const [counter, setCounter] = useState(initialCount);
+  // const [counter, setCounter] = useState(initialCount);
+
+  // 카운트의 변화를 배열로 추적
+  const [counterChanges, setCounterChanges] = useState([initialCount]);
+
+  // 현재 카운트의 총합
+  const currentCount = counterChanges.reduce((acc, curr) => acc + curr, 0);
 
   /*
     useCallback hooks은 변경사항이 없는 함수를 재생성하지 않고 재사용하는 훅입니다.
     2번째 파라미터에 해당하는 배열은 의존성배열로서, 특정 상태값이나 props가 변하면 함수를 재생성하도록합니다.
   */
   const decrementHandler = useCallback(() => {
-    setCounter((prevCounter) => prevCounter - 1);
+    setCounterChanges((prevCounterChange) => [-1, ...prevCounterChange]);
   }, []);
 
   const incrementHandler = useCallback(() => {
-    setCounter((prevCounter) => prevCounter + 1);
+    setCounterChanges((prevCounterChange) => [1, ...prevCounterChange]);
   }, []);
 
   return (
@@ -56,7 +64,7 @@ const Counter = ({ initialCount }) => {
           Decrement
         </IconButton>
 
-        <CounterOutput value={counter} />
+        <CounterOutput value={currentCount} />
 
         <IconButton
           icon={PlusIcon}
@@ -64,6 +72,9 @@ const Counter = ({ initialCount }) => {
           Increment
         </IconButton>
       </p>
+
+      <CounterHistory history={counterChanges} />
+
     </section>
   );
 };
