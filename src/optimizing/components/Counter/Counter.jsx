@@ -60,4 +60,5 @@ const Counter = ({ initialCount }) => {
     </section>
   );
 };
-export default memo(Counter);
+// export default memo(Counter);
+export default Counter;
