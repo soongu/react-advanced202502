@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 
 import IconButton from '../UI/IconButton';
 import MinusIcon from '../UI/Icons/MinusIcon';
@@ -24,18 +24,23 @@ const isPrime = (number) => {
 };
 
 const Counter = ({ initialCount }) => {
+
   log('<Counter /> rendered', 1);
   const initialCountIsPrime = isPrime(initialCount);
 
   const [counter, setCounter] = useState(initialCount);
 
-  const decrementHandler = () => {
+  /*
+    useCallback hooks은 변경사항이 없는 함수를 재생성하지 않고 재사용하는 훅입니다.
+    2번째 파라미터에 해당하는 배열은 의존성배열로서, 특정 상태값이나 props가 변하면 함수를 재생성하도록합니다.
+  */
+  const decrementHandler = useCallback(() => {
     setCounter((prevCounter) => prevCounter - 1);
-  };
+  }, []);
 
-  const incrementHandler = () => {
+  const incrementHandler = useCallback(() => {
     setCounter((prevCounter) => prevCounter + 1);
-  };
+  }, []);
 
   return (
     <section className='counter'>
@@ -50,7 +55,9 @@ const Counter = ({ initialCount }) => {
         >
           Decrement
         </IconButton>
+
         <CounterOutput value={counter} />
+
         <IconButton
           icon={PlusIcon}
           onClick={incrementHandler}>
