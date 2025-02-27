@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback, useEffect } from 'react';
+import React, { useState, memo, useCallback, useEffect, useMemo } from 'react';
 
 import IconButton from '../UI/IconButton';
 import MinusIcon from '../UI/Icons/MinusIcon';
@@ -7,27 +7,30 @@ import CounterOutput from './CounterOutput';
 import { log } from '../../log';
 import CounterHistory from './CounterHistory';
 
-const isPrime = (number) => {
-  log('Calculating if is prime number', 2, 'other');
-  if (number <= 1) {
-    return false;
-  }
 
-  const limit = Math.sqrt(number);
-
-  for (let i = 2; i <= limit; i++) {
-    if (number % i === 0) {
-      return false;
-    }
-  }
-
-  return true;
-};
 
 const Counter = ({ initialCount }) => {
+
+  const isPrime = (number) => {
+    log('Calculating if is prime number', 2, 'other');
+    if (number <= 1) {
+      return false;
+    }
+
+    const limit = Math.sqrt(number);
+
+    for (let i = 2; i <= limit; i++) {
+      if (number % i === 0) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   log('<Counter /> rendered', 1);
 
-  const initialCountIsPrime = isPrime(initialCount);
+  const initialCountIsPrime = useMemo(() => isPrime(initialCount), [initialCount]);
 
   // const [counter, setCounter] = useState(initialCount);
 
