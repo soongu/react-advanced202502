@@ -25,7 +25,7 @@ const ReduxCounter = () => {
   };
 
   const handleMultiply = (e) => {
-    dispatch(multiply());
+    dispatch(multiply({ count: 3 }));
   };
 
   return (

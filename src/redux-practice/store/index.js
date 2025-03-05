@@ -27,8 +27,9 @@ const counterSlice = createSlice({
     decrement(state) {
       state.count--;
     },
+    // action: dispatch에서 전달된 파라미터
     multiply(state, action) {
-      state.count *= 3;
+      state.count *= action.payload.count;
     },
     toggle(state) {
       state.showCounter = !state.showCounter;
