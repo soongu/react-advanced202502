@@ -3,6 +3,7 @@ import { createStore } from "redux";
 // 상태관리할 데이터의 초기값을 세팅
 const initialState = {
   count: 0,
+  showCounter: true,
 };
 
 // reducer: 상태관리를 위한 함수
@@ -22,16 +23,24 @@ const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INCREMENT':
       return {
+        ...state,
         count: state.count + 1,
       };
     case 'DECREMENT':
       return {
+        ...state,
         count: state.count - 1,
       };
     case 'MULTIPLY':
       return {
+        ...state,
         count: state.count * action.payload,
       };
+    case 'TOGGLE':
+      return {
+        ...state,
+        showCounter: !state.showCounter
+      }
   }
   return state;
 };

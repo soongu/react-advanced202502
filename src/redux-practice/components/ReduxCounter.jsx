@@ -5,6 +5,7 @@ const ReduxCounter = () => {
 
   // 리덕스가 관리하는 상태값을 불러오기
   const count = useSelector(state => state.count);
+  const show = useSelector((state) => state.showCounter);
 
   // 리덕스의 상태변경을 위한 함수 가져오기
   const dispatch = useDispatch();
@@ -26,7 +27,8 @@ const ReduxCounter = () => {
   return (
     <main className={styles.counter}>
       <h1>Redux Counter</h1>
-      <div className={styles.value}>{count}</div>
+
+      {show && <div className={styles.value}>{count}</div>}
       
       <div style={{
         marginBottom: 10
@@ -35,7 +37,7 @@ const ReduxCounter = () => {
         <button onClick={handleDecrease}>Decrement</button>
         <button onClick={handleMultiply}>IncrementDouble</button>
       </div>
-      <button>Toggle Counter</button>
+      <button onClick={() => dispatch({ type: 'TOGGLE' })}>Toggle Counter</button>
     </main>
   );
 };
