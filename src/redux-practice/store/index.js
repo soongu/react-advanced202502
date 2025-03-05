@@ -2,7 +2,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 
 // 상태관리할 데이터의 초기값을 세팅
-const initialState = {
+const initialCounterState = {
   count: 0,
   showCounter: true,
 };
@@ -19,7 +19,7 @@ const initialState = {
 
 const counterSlice = createSlice({
   name: 'counter',
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state) {
       state.count++;
@@ -38,10 +38,29 @@ const counterSlice = createSlice({
 });
 
 
+// 인증 관련 전역상태관리 슬라이스
+const initialAuthState = {
+  isLoggedIn: false
+}; // 인증 관련 상태 초기값
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: initialAuthState,
+  reducers: {},
+});
+
+
 // 리덕스는 단 하나의 스토어만 사용한다.
 // 스토어는 최상단 컴포넌트에 제공해야 한다.
 const store = configureStore({
-  reducer: counterSlice.reducer
+  // reducer: counterSlice.reducer
+
+  // 단일 슬라이스가 아닌 다중 슬라이스 
+  // -> 컴포넌트들이 상태값을 가져갈 때(useSelector) 이제 키를 명시해야함
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer,
+  }
 });
 
 // 상태를 변경하는 함수들을 모두 내보내기

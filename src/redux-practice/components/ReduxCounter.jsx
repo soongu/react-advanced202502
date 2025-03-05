@@ -5,8 +5,8 @@ import { counterActions } from '../store';
 const ReduxCounter = () => {
 
   // 리덕스가 관리하는 상태값을 불러오기
-  const count = useSelector(state => state.count);
-  const show = useSelector((state) => state.showCounter);
+  const count = useSelector(state => state.counter.count);
+  const show = useSelector((state) => state.counter.showCounter);
 
   // 리덕스의 상태변경을 위한 함수 가져오기
   const dispatch = useDispatch();
