@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ReduxCounter.module.css';
+import { DECREMENT, INCREMENT, MULTIPLY, TOGGLE } from '../store';
 
 const ReduxCounter = () => {
 
@@ -11,17 +12,18 @@ const ReduxCounter = () => {
   const dispatch = useDispatch();
 
   const handleIncrease = e => { 
+    
     // 카운트를 증가시키려면 redux store에 접근하여 상태값을 변경요청해야함.
     // 리덕스에서는 상태값 변경을 위해 dispatch함수를 호출해야함.
-    dispatch({ type: 'INCREMENT' });
+    dispatch({ type: INCREMENT });
   };
 
   const handleDecrease = (e) => {
-    dispatch({ type: 'DECREMENT' });
+    dispatch({ type: DECREMENT });
   };
 
   const handleMultiply = (e) => {
-    dispatch({ type: 'MULTIPLY', payload: 10 });
+    dispatch({ type: MULTIPLY, payload: 10 });
   };
 
   return (
@@ -37,7 +39,7 @@ const ReduxCounter = () => {
         <button onClick={handleDecrease}>Decrement</button>
         <button onClick={handleMultiply}>IncrementDouble</button>
       </div>
-      <button onClick={() => dispatch({ type: 'TOGGLE' })}>Toggle Counter</button>
+      <button onClick={() => dispatch({ type: TOGGLE })}>Toggle Counter</button>
     </main>
   );
 };
