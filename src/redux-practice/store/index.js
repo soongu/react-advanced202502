@@ -15,7 +15,24 @@ const initialState = {
 const counterReducer = (state = initialState, action) => { 
   console.log('prev state: ', state);
   console.log('action: ', action);
-  
+
+  // 상태변경 처리 
+  // 1. 상태값 변경시 action에 들어온 type별로 다르게 처리한다.
+  // 2. 상태값 변경은 반드시 새로운 객체를 할당해야 한다.
+  switch (action.type) {
+    case 'INCREMENT':
+      return {
+        count: state.count + 1,
+      };
+    case 'DECREMENT':
+      return {
+        count: state.count - 1,
+      };
+    case 'MULTIPLY':
+      return {
+        count: state.count * action.payload,
+      };
+  }
   return state;
 };
 
