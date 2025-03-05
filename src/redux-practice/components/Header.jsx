@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Header.module.css';
-import { authActions } from '../store';
+import { logout } from '../store/authSlice';
 
 const Header = () => {
 
   const dispatch = useDispatch();
-
-  const { logout } = authActions;
 
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const count = useSelector(state => state.counter.count);
