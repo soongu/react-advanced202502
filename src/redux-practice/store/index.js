@@ -46,7 +46,14 @@ const initialAuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState: initialAuthState,
-  reducers: {},
+  reducers: {
+    login(state) {
+      state.isLoggedIn = true;
+    },
+    logout(state) {
+      state.isLoggedIn = false;
+    },
+  }, // 상태변경 함수
 });
 
 
@@ -65,5 +72,6 @@ const store = configureStore({
 
 // 상태를 변경하는 함수들을 모두 내보내기
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 export default store;
